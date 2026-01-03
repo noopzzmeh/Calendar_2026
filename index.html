@@ -34,7 +34,22 @@ button { width: 90%; padding: 10px; border: none; border-radius: 10px; backgroun
   color: #F5D5E0 !important;
   font-weight: 600;
 }
-
+@media (max-width: 768px) {
+    .calendar {
+        grid-template-columns: 1fr;
+        padding: 5px;
+    }
+    .month {
+        width: 100%;
+    }
+    table {
+        font-size: 0.8rem;
+    }
+    td, th {
+        padding: 4px;
+        word-wrap: break-word;
+    }
+}
 </style>
 </head>
 <body>
