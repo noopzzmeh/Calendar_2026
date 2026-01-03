@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 Calendar Layout</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600&display=swap');
+body { font-family: 'Poppins', sans-serif; background-color: #210635; color: #F5D5E0; overflow-x: hidden; position: relative; }
+h1 { text-align: center; color: #F5D5E0; margin-bottom: 30px; font-size: 3.5rem; font-family: 'Pacifico', cursive; letter-spacing: 4px; animation: glow 2.5s ease-in-out infinite alternate, dropIn 1.2s ease; position: relative; z-index: 1; }
+@keyframes glow { from { text-shadow: 0 0 5px #F5D5E0, 0 0 10px #6667AB; } to { text-shadow: 0 0 12px #F5D5E0, 0 0 25px #7B337E; } }
+@keyframes dropIn { from { transform: translateY(-40px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+.calendar { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; position: relative; z-index: 1; }
+.month { background-color: #210635; border: 2px solid #6667AB; border-radius: 14px; padding: 10px; position: relative; }
+.month h3 { text-align: center; margin: 6px 0 10px; color: #F5D5E0; font-weight: 600; text-shadow: 0 0 6px #F5D5E0, 0 0 14px #6667AB; position: relative; z-index: 1; }
+table { width: 100%; border-collapse: collapse; text-align: center; position: relative; z-index: 1; }
+th { background-color: #420D4B; color: #F5D5E0; padding: 6px; }
+td { border: 1px solid #420D4B; padding: 6px; background-color: #210635; cursor: pointer; transition: background-color 0.25s ease, transform 0.2s ease; position: relative; }
+td:hover { background-color: #7B337E; transform: scale(1.1); }
+.modal { display: none; position: fixed; inset: 0; background: rgba(33,6,53,0.55); backdrop-filter: blur(2px); justify-content: center; align-items: center; z-index: 1000; }
+.modal-content { background: #420D4B; padding: 20px; width: 320px; height: 440px; border-radius: 16px; box-shadow: 0 20px 50px rgba(0,0,0,0.6); animation: popIn 0.4s ease; display: flex; flex-direction: column; justify-content: flex-start; align-items: center; position: relative; }
+@keyframes popIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.modal-content h2 { text-align: center; margin-bottom: 12px; color: #F5D5E0; font-family: 'Pacifico', cursive; font-size: 1.8rem; text-shadow: 0 0 8px #F5D5E0, 0 0 20px #6667AB; position: relative; z-index: 1; }
+textarea { width: 90%; height: 280px; border-radius: 12px; border: none; padding: 12px; resize: none; outline: none; background-color: #7B337E; color: #F5D5E0; font-family: 'Poppins', sans-serif; font-size: 1rem; margin-bottom: 20px; position: relative; z-index: 1; }
+button { width: 90%; padding: 10px; border: none; border-radius: 10px; background: #6667AB; color: #F5D5E0; font-weight: 600; cursor: pointer; position: relative; z-index: 1; }
+.close { align-self: flex-end; cursor: pointer; font-size: 20px; position: relative; z-index: 1; }
+.blur { filter: blur(6px); transition: filter 0.4s ease; }
+.round-sparkle { position: absolute; width: 6px; height: 6px; border-radius: 50%; background-color: #F5D5E0; opacity: 0.8; pointer-events: none; animation: roundSparkleAnim 2s linear infinite; }
+@keyframes roundSparkleAnim { 0% { transform: translate(0,0) scale(0.8); opacity: 0.8; } 50% { transform: translate(-3px,-3px) scale(1.2); opacity: 0.5; } 100% { transform: translate(3px,3px) scale(0.8); opacity: 0; } }
+
+/* Highlight dates with saved notes – CLEAR COLOR */
+.has-note {
+  background-color: #6667AB !important;
+  color: #F5D5E0 !important;
+  font-weight: 600;
+}
+
+</style>
+</head>
+<body>
+
+<h1>2026</h1>
+<div class="calendar" id="calendar">
+    <!-- JANUARY -->
+<div class="month">
+<h3>January</h3>
+<table>
+<tr><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr>
+<tr><td></td><td></td><td></td><td></td><td>1</td><td>2</td><td>3</td></tr>
+<tr><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td></tr>
+<tr><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td><td>16</td><td>17</td></tr>
+<tr><td>18</td><td>19</td><td>20</td><td>21</td><td>22</td><td>23</td><td>24</td></tr>
+<tr><td>25</td><td>26</td><td>27</td><td>28</td><td>29</td><td>30</td><td>31</td></tr>
+</table>
+</div>
+
+<!-- FEBRUARY -->
+<div class="month">
+<h3>February</h3>
+<table>
+<tr><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr>
+<tr><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td></tr>
+<tr><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td></tr>
+<tr><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td><td>20</td><td>21</td></tr>
+<tr><td>22</td><td>23</td><td>24</td><td>25</td><td>26</td><td>27</td><td>28</td></tr>
+</table>
+</div>
+
+<!-- MARCH -->
+<div class="month">
+<h3>March</h3>
+<table>
+<tr><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr>
+<tr><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td></tr>
+<tr><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td></tr>
+<tr><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td><td>20</td><td>21</td></tr>
+<tr><td>22</td><td>23</td><td>24</td><td>25</td><td>26</td><td>27</td><td>28</td></tr>
+<tr><td>29</td><td>30</td><td>31</td><td></td><td></td><td></td><td></td></tr>
+</table>
+</div>
+
+  <!-- APRIL -->
+<div class="month">
+<h3>April</h3>
+<table>
+<tr><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr>
+<tr><td></td><td></td><td></td><td>1</td><td>2</td><td>3</td><td>4</td></tr>
+<tr><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td></tr>
+<tr><td>12</td><td>13</td><td>14</td><td>15</td><td>16</td><td>17</td><td>18</td></tr>
+<tr><td>19</td><td>20</td><td>21</td><td>22</td><td>23</td><td>24</td><td>25</td></tr>
+<tr><td>26</td><td>27</td><td>28</td><td>29</td><td>30</td><td></td><td></td></tr>
+</table>
+</div>
+   <!-- MAY -->
+<div class="month">
+<h3>May</h3>
+<table>
+<tr><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td>1</td><td>2</td></tr>
+<tr><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td></tr>
+<tr><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td><td>16</td></tr>
+<tr><td>17</td><td>18</td><td>19</td><td>20</td><td>21</td><td>22</td><td>23</td></tr>
+<tr><td>24</td><td>25</td><td>26</td><td>27</td><td>28</td><td>29</td><td>30</td></tr>
+<tr><td>31</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+</table>
+</div>
+
+  <!-- JUNE -->
+<div class="month">
+<h3>June</h3>
+<table>
+<tr><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr>
+<tr><td></td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td></tr>
+<tr><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td></tr>
+<tr><td>14</td><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td><td>20</td></tr>
+<tr><td>21</td><td>22</td><td>23</td><td>24</td><td>25</td><td>26</td><td>27</td></tr>
+<tr><td>28</td><td>29</td><td>30</td><td></td><td></td><td><td></td></tr>
+</table>
+</div>
+
+  <!-- JULY -->
+<div class="month">
+<h3>July</h3>
+<table>
+<tr><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr>
+<tr><td></td><td></td><td></td><td>1</td><td>2</td><td>3</td><td>4</td></tr>
+<tr><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td></tr>
+<tr><td>12</td><td>13</td><td>14</td><td>15</td><td>16</td><td>17</td><td>18</td></tr>
+<tr><td>19</td><td>20</td><td>21</td><td>22</td><td>23</td><td>24</td><td>25</td></tr>
+<tr><td>26</td><td>27</td><td>28</td><td>29</td><td>30</td><td>31</td><td></td></tr>
+</table>
+</div>
+
+<!-- AUGUST -->
+<div class="month">
+<h3>August</h3>
+<table>
+<tr><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td>1</td></tr>
+<tr><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td></tr>
+<tr><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td></tr>
+<tr><td>16</td><td>17</td><td>18</td><td>19</td><td>20</td><td>21</td><td>22</td></tr>
+<tr><td>23</td><td>24</td><td>25</td><td>26</td><td>27</td><td>28</td><td>29</td></tr>
+<tr><td>30</td><td>31</td><td></td><td></td><td></td><td></td><td></td></tr>
+</table>
+</div>
+
+<!-- SEPTEMBER -->
+<div class="month">
+<h3>September</h3>
+<table>
+<tr><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr>
+<tr><td></td><td></td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr>
+<tr><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td></tr>
+<tr><td>13</td><td>14</td><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td></tr>
+<tr><td>20</td><td>21</td><td>22</td><td>23</td><td>24</td><td>25</td><td>26</td></tr>
+<tr><td>27</td><td>28</td><td>29</td><td>30</td><td></td><td></td><td></td></tr>
+</table>
+</div>
+
+<!-- OCTOBER -->
+<div class="month">
+<h3>October</h3>
+<table>
+<tr><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr>
+<tr><td></td><td></td><td></td><td></td><td>1</td><td>2</td><td>3</td></tr>
+<tr><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td></tr>
+<tr><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td><td>16</td><td>17</td></tr>
+<tr><td>18</td><td>19</td><td>20</td><td>21</td><td>22</td><td>23</td><td>24</td></tr>
+<tr><td>25</td><td>26</td><td>27</td><td>28</td><td>29</td><td>30</td><td>31</td></tr>
+</table>
+</div>
+
+<!-- NOVEMBER -->
+<div class="month">
+<h3>November</h3>
+<table>
+<tr><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr>
+<tr><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td></tr>
+<tr><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td></tr>
+<tr><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td><td>20</td><td>21</td></tr>
+<tr><td>22</td><td>23</td><td>24</td><td>25</td><td>26</td><td>27</td><td>28</td></tr>
+<tr><td>29</td><td>30</td><td></td><td></td><td></td><td></td><td></td></tr>
+</table>
+</div>
+
+<!-- DECEMBER -->
+<div class="month">
+<h3>December</h3>
+<table>
+<tr><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr>
+<tr><td></td><td></td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr>
+<tr><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td></tr>
+<tr><td>13</td><td>14</td><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td></tr>
+<tr><td>20</td><td>21</td><td>22</td><td>23</td><td>24</td><td>25</td><td>26</td></tr>
+<tr><td>27</td><td>28</td><td>29</td><td>30</td><td>31</td><td></td><td></td></tr>
+</table>
+</div>
+
+</div>
+
+<div id="noteModal" class="modal">
+    <div class="modal-content" id="noteContent">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2 id="selectedDate">Note</h2>
+        <textarea placeholder="Write your note here..."></textarea>
+        <button onclick="saveNote()">Save</button>
+    </div>
+</div>
+
+<script>
+const modal = document.getElementById('noteModal');
+const calendar = document.getElementById('calendar');
+const selectedDateText = document.getElementById('selectedDate');
+const textarea = document.querySelector('textarea');
+
+function initCalendarClicks() {
+    const cells = document.querySelectorAll('td');
+    cells.forEach(cell => {
+        if (cell.innerText.trim() === '') return;
+
+        cell.addEventListener('click', () => {
+            const month = cell.closest('.month').querySelector('h3').innerText;
+            const date = cell.innerText.trim();
+            const key = `${month}-${date}-2026`;
+
+            selectedDateText.innerText = `Note for ${month} ${date}`;
+            textarea.value = localStorage.getItem(key) || '';
+
+            modal.dataset.key = key;
+
+            modal.style.display = 'flex';
+            calendar.classList.add('blur');
+        });
+    });
+}
+
+function closeModal() {
+    modal.style.display = 'none';
+    calendar.classList.remove('blur');
+}
+
+function saveNote() {
+    const key = modal.dataset.key;
+    if (!key) return;
+
+    localStorage.setItem(key, textarea.value);
+    highlightSavedNotes();
+    closeModal();
+}
+
+function highlightSavedNotes() {
+    const cells = document.querySelectorAll('td');
+    cells.forEach(cell => {
+        cell.classList.remove('has-note');
+        if (cell.innerText.trim() === '') return;
+
+        const month = cell.closest('.month').querySelector('h3').innerText;
+        const date = cell.innerText.trim();
+        const key = `${month}-${date}-2026`;
+
+        if (localStorage.getItem(key)) {
+            cell.classList.add('has-note');
+        }
+    });
+}
+
+// Sparkles
+function createRoundSparkle() {
+    const sparkle = document.createElement('div');
+    sparkle.className = 'round-sparkle';
+    sparkle.style.top = Math.random() * window.innerHeight + 'px';
+    sparkle.style.left = Math.random() * window.innerWidth + 'px';
+    document.body.appendChild(sparkle);
+    setTimeout(() => sparkle.remove(), 2000);
+}
+setInterval(createRoundSparkle, 120);
+
+// Init
+initCalendarClicks();
+highlightSavedNotes();
+</script>
+</body>
+</html>
